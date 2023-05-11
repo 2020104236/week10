@@ -1,0 +1,38 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+class FC {
+public:
+	FC() {};
+	FC(float cc) { c = cc; f = getF(); }
+	float c, f;
+	float getF() { return c * 9 / 5 + 32; }
+	float getC(){ return (f - 32) * 5 / 9; }
+};
+class city {
+public:
+	city() {}
+	city(char* fn) {
+		xx.open(fn);
+		for (int i = 0; i < 12; i++) {
+			xx >> c;
+			fc[i] = FC(c);
+		}
+		xx.close();
+	} 
+	FC fc[12]; ifstream xx; float c;
+}; 
+void main() {
+	city cities[4];
+	cities[0] = city((char*)"Seoul.txt");
+	cities[1] = city((char*)"London.txt");
+	cities[2] = city((char*)"Paris.txt");
+	cities[3] = city((char*)"Newyork.txt");
+	ofstream yy("total.txt");
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 12; j++) {
+			yy << j + 1 << "  " << cities[i].fc[j].c << "   " << cities[i].fc[j].f << endl;
+		}
+	}
+	yy.close();
+}
