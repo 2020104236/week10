@@ -1,0 +1,33 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+class lol {
+public:
+	lol() {}
+	lol(int x,int y, float c,float d, float e, float f, int g,string h) {
+		n[0] = x; n[1] = y; p[0] = c; p[1] = d; p[2] = e; p[3] = f; m = g; s = h;
+	}
+	int n[2], m; float p[4]; string s; int k; float j;
+	void file() {
+		ofstream xx(s, ios::binary | ios::out);
+		xx.write((char*)n, 2*sizeof(int));
+		xx.write((char*)&p, 4 * sizeof(float));
+		xx.write((char*)&m, sizeof(int));
+		for (int i = n[0]; i < n[1]+1; i++) {
+			k = i * (i + 1) / 2;
+			xx.write((char*)&k, sizeof(int));
+		}
+		for (int i = 0; i < m; i++) {
+			j = p[0] * (p[2] + (p[3] * i)) + p[1];
+			xx.write((char*)&j,sizeof(float));
+		}
+		xx.close();
+	}
+};
+int main() {
+	lol *akali;
+	akali =new lol(5, 10, 2, 3, -5, 0.1, 10,"akali.dat");
+	akali->file();
+	delete akali;
+	return 123;
+}
