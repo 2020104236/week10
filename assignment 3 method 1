@@ -1,0 +1,39 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+class lol {
+public:
+	lol() {  }
+	int n[2],m; float x[4];
+	int* k; float* j;
+	void ad() {
+		k = new int[n[1] - n[0] + 1];
+		for (int i = n[0]; i < n[1] + 1; i++) {
+			k[i - n[0]] = i * (i + 1) / 2;
+		}
+	}
+	void ap(){
+		j = new float[m];
+		float a=x[2] - x[3];
+		for (int i = 0; i < m; i++) {
+			a += x[3];
+			j[i] = x[0] * a + x[1];
+		}
+	}
+};
+int main() {
+	lol akali;
+	akali.n[0] = 5; akali.n[1] = 10; akali.m = 10;
+	akali.x[0] = 2; akali.x[1] = 3; akali.x[2] = -5; akali.x[3] = 0.1;
+	akali.ad(); akali.ap();
+	ofstream xx("akali.dat", ios::binary | ios::out);
+	if (!xx)return 666;
+	xx.write((char*)akali.n, 2*sizeof(int));
+	xx.write((char*)akali.x, 4*sizeof(float));
+	xx.write((char*)&akali.m, sizeof(int));
+	xx.write((char*)akali.k, (akali.n[1] - akali.n[0] + 1) * sizeof(int));
+	xx.write((char*)akali.j, (akali.m) * sizeof(float));
+	xx.close();
+	return 123;
+	
+}
